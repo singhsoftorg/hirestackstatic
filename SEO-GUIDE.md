@@ -3,6 +3,7 @@
 ## ✅ Completed SEO Updates
 
 ### Domain & URLs
+
 - ✅ Updated all URLs to `https://www.hirestacksolutions.com`
 - ✅ Updated sitemap.xml with correct domain and latest dates
 - ✅ Updated robots.txt to point to correct sitemap
@@ -18,6 +19,7 @@
 ### 1. Configure Custom Domain on GitHub Pages
 
 **In GitHub Repository Settings:**
+
 1. Go to `Settings` → `Pages`
 2. Under "Custom domain", enter: `www.hirestacksolutions.com`
 3. Enable "Enforce HTTPS" (wait until SSL certificate is provisioned)
@@ -46,6 +48,7 @@ Value: 185.199.111.153
 ### 2. Submit to Search Engines
 
 #### Google Search Console
+
 1. Go to: https://search.google.com/search-console
 2. Add property: `www.hirestacksolutions.com`
 3. Verify ownership (use HTML tag method or DNS)
@@ -53,6 +56,7 @@ Value: 185.199.111.153
 5. Request indexing for homepage
 
 #### Bing Webmaster Tools
+
 1. Go to: https://www.bing.com/webmasters
 2. Add site: `www.hirestacksolutions.com`
 3. Verify ownership
@@ -63,14 +67,17 @@ Value: 185.199.111.153
 ### 3. Create & Upload Required Files
 
 #### robots.txt ✅ Already Created
+
 Location: `/robots.txt`
 Already configured and pointing to correct sitemap.
 
 #### sitemap.xml ✅ Already Created
+
 Location: `/sitemap.xml`
 Updated with all sections and correct domain.
 
 #### Favicon & Touch Icons (REQUIRED)
+
 Create and add these files to your repository root:
 
 - `favicon.ico` (32x32, 16x16)
@@ -81,12 +88,14 @@ Create and add these files to your repository root:
 **Quick generation tool:** https://realfavicongenerator.net/
 
 #### Social Media Images
+
 Create and add these files to `/assets/` folder:
 
 - `og-image.jpg` (1200x630 pixels) - For Facebook/LinkedIn
 - `twitter-image.jpg` (1200x600 pixels) - For Twitter
 
 Images should include:
+
 - Company logo
 - Tagline: "Vetted developers. No recruiters. Ship in 72 hours."
 - Professional background
@@ -96,6 +105,7 @@ Images should include:
 ### 4. Optimize for Keywords
 
 #### Primary Keywords (Already in meta tags):
+
 - employee outsourcing
 - staff augmentation
 - remote teams
@@ -105,6 +115,7 @@ Images should include:
 - dedicated teams
 
 #### Long-tail Keywords to Target:
+
 - "hire vetted developers fast"
 - "outsource engineering team"
 - "staff augmentation services"
@@ -112,6 +123,7 @@ Images should include:
 - "tech talent outsourcing"
 
 #### Action Items:
+
 - ✅ Title tag optimized
 - ✅ Meta description optimized
 - ✅ Heading tags (H1, H2, H3) properly structured
@@ -125,6 +137,7 @@ Images should include:
 #### High-Priority Actions:
 
 **Business Directories:**
+
 - Google Business Profile (formerly Google My Business)
 - Bing Places for Business
 - Yelp for Business
@@ -133,12 +146,14 @@ Images should include:
 - G2.com (software/services)
 
 **Social Media Profiles:**
+
 - LinkedIn Company Page (link to website)
 - Twitter/X profile
 - Facebook Business Page
 - Instagram (if applicable)
 
 **Industry Directories:**
+
 - Upwork Agency profile
 - Freelancer.com
 - AngelList (if applicable)
@@ -149,29 +164,35 @@ Images should include:
 ### 6. Schema Markup Enhancements
 
 #### Already Implemented ✅:
+
 - Organization schema
 - Contact information
 - Services offered
 - Aggregate ratings
 
 #### Consider Adding:
+
 **FAQ Schema** (for your FAQ section):
+
 ```json
 {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [{
-    "@type": "Question",
-    "name": "How quickly can you deploy talent?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "We provide an initial response within..."
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How quickly can you deploy talent?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We provide an initial response within..."
+      }
     }
-  }]
+  ]
 }
 ```
 
 **LocalBusiness Schema** (if you have a physical office):
+
 ```json
 {
   "@type": "LocalBusiness",
@@ -190,6 +211,7 @@ Images should include:
 ### 7. Performance Optimization
 
 #### Already Optimized:
+
 - ✅ Minimal CSS/JS
 - ✅ No large framework overhead
 - ✅ Optimized animations
@@ -197,9 +219,9 @@ Images should include:
 - ✅ Fast loading Three.js particles
 
 #### Test & Monitor:
+
 1. **PageSpeed Insights**: https://pagespeed.web.dev/
    - Target: 90+ for both mobile and desktop
-   
 2. **Core Web Vitals:**
    - LCP (Largest Contentful Paint): < 2.5s
    - FID (First Input Delay): < 100ms
@@ -212,24 +234,38 @@ Images should include:
 ### 8. Analytics & Tracking
 
 #### Google Analytics 4
+
 ```html
 <!-- Add to <head> section -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script
+  async
+  src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-XXXXXXXXXX");
 </script>
 ```
 
 #### Microsoft Clarity (Free heatmaps & session recordings)
+
 ```html
 <script type="text/javascript">
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  (function (c, l, a, r, i, t, y) {
+    c[a] =
+      c[a] ||
+      function () {
+        (c[a].q = c[a].q || []).push(arguments);
+      };
+    t = l.createElement(r);
+    t.async = 1;
+    t.src = "https://www.clarity.ms/tag/" + i;
+    y = l.getElementsByTagName(r)[0];
+    y.parentNode.insertBefore(t, y);
   })(window, document, "clarity", "script", "YOUR_PROJECT_ID");
 </script>
 ```
@@ -256,13 +292,16 @@ If serving specific geographic regions:
 ### 10. Content Marketing
 
 #### Blog/Articles (Optional but Recommended)
+
 Create blog posts targeting:
+
 - "How to hire remote developers in 2026"
 - "Staff augmentation vs dedicated teams: Which is right?"
 - "The real cost of hiring developers in-house"
 - "How we reduced hiring time from 8 weeks to 72 hours"
 
 #### Location for Blog:
+
 Create `/blog/` folder in repository with individual HTML pages or use a platform like Medium/LinkedIn and link back.
 
 ---
@@ -270,17 +309,20 @@ Create `/blog/` folder in repository with individual HTML pages or use a platfor
 ## 📊 Monitoring & Maintenance
 
 ### Weekly:
+
 - ✅ Check Google Search Console for errors
 - ✅ Monitor keyword rankings
 - ✅ Review Analytics for traffic patterns
 
 ### Monthly:
+
 - ✅ Update `<lastmod>` dates in sitemap.xml
 - ✅ Add new content or blog posts
 - ✅ Check for broken links
 - ✅ Review competitor rankings
 
 ### Quarterly:
+
 - ✅ Refresh meta descriptions
 - ✅ Update statistics and numbers
 - ✅ Audit backlinks
@@ -291,6 +333,7 @@ Create `/blog/` folder in repository with individual HTML pages or use a platfor
 ## 🎯 Quick Win Checklist
 
 **Do These First (Next 24 Hours):**
+
 - [ ] Configure custom domain on GitHub Pages
 - [ ] Add DNS records at domain registrar
 - [ ] Create and upload favicon files
@@ -300,6 +343,7 @@ Create `/blog/` folder in repository with individual HTML pages or use a platfor
 - [ ] Submit sitemap to Bing
 
 **Do These Next (This Week):**
+
 - [ ] Set up Google Analytics
 - [ ] Create Google Business Profile
 - [ ] Add site to Clutch.co and G2.com
@@ -308,6 +352,7 @@ Create `/blog/` folder in repository with individual HTML pages or use a platfor
 - [ ] Request indexing in Search Console
 
 **Do These Ongoing:**
+
 - [ ] Build backlinks from quality sources
 - [ ] Create blog content
 - [ ] Monitor search rankings
@@ -319,6 +364,7 @@ Create `/blog/` folder in repository with individual HTML pages or use a platfor
 ## 🔧 Tools & Resources
 
 ### Free SEO Tools:
+
 - Google Search Console: https://search.google.com/search-console
 - Google Analytics: https://analytics.google.com
 - Bing Webmaster Tools: https://www.bing.com/webmasters
@@ -328,11 +374,13 @@ Create `/blog/` folder in repository with individual HTML pages or use a platfor
 - Favicon Generator: https://realfavicongenerator.net/
 
 ### Keyword Research:
+
 - Google Keyword Planner (free with Google Ads account)
 - Ubersuggest: https://neilpatel.com/ubersuggest/
 - AnswerThePublic: https://answerthepublic.com/
 
 ### Backlink Analysis:
+
 - Ahrefs Backlink Checker (limited free)
 - Moz Link Explorer (limited free)
 
@@ -363,6 +411,7 @@ Create `/blog/` folder in repository with individual HTML pages or use a platfor
 ## 📞 Need Help?
 
 If you need assistance with any of these steps, contact an SEO specialist or digital marketing agency. The most critical first steps are:
+
 1. Domain configuration
 2. Search Console verification
 3. Sitemap submission

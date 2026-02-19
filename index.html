@@ -34,7 +34,10 @@
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://www.hirestacksolutions.com/" />
+    <meta
+      property="twitter:url"
+      content="https://www.hirestacksolutions.com/"
+    />
     <meta
       property="twitter:title"
       content="Hire Stack Solutions - Global Talent Outsourcing"
@@ -49,9 +52,20 @@
     />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="favicon/favicon-96x96.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="favicon/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="favicon/site.webmanifest" />
 
     <!-- Theme Color -->
     <meta name="theme-color" content="#0a0e27" />
@@ -97,6 +111,90 @@
         ]
       }
     </script>
+
+    <!-- FAQ Schema (SEO for FAQ section) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How quickly can you deploy talent?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We provide an initial response within 24 hours, deliver a shortlist of qualified candidates within 3 days, and can have your new team members onboarded and productive within 5 business days. Our streamlined process eliminates the typical 2-3 month hiring timeline."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if a team member isn't the right fit?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We offer a 14-day satisfaction guarantee. If you're not completely satisfied with any team member, we'll replace them at no additional cost. Our 95% retention rate speaks to the quality of our matching process."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do you ensure quality and expertise?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Every professional in our network undergoes rigorous vetting including technical assessments, portfolio reviews, reference checks, and cultural fit evaluations. We use AI-powered matching combined with human expertise to ensure you get professionals who align with your company culture and values."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What are the contract terms and flexibility?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We offer flexible engagement models from short-term projects (minimum 1 month) to long-term dedicated teams. You can scale your team up or down with just 2 weeks' notice, and there are no long-term commitments required. We bill monthly with transparent, all-inclusive pricing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you handle compliance and legal matters?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, we manage all employment contracts, tax compliance, payroll, benefits administration, and legal requirements in respective countries. You work directly with the talent while we handle all the administrative and legal complexities, ensuring full compliance with local regulations."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What industries and technologies do you specialize in?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We serve clients across all major industries including fintech, healthcare, e-commerce, SaaS, and enterprise software. Our talent pool includes experts in modern tech stacks (React, Node.js, Python, Java, .NET, mobile development), cloud technologies (AWS, Azure, GCP), data science, AI/ML, DevOps, UX/UI design, and product management."
+            }
+          }
+        ]
+      }
+    </script>
+
+    <!-- Google Analytics 4 -->
+    <!-- TODO: Replace G-XXXXXXXXXX with your actual Google Analytics Measurement ID -->
+    <!-- Get your ID from: https://analytics.google.com/analytics/web/ -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
+
+    <!-- Microsoft Clarity (Free Heatmaps & Session Recordings) -->
+    <!-- TODO: Replace YOUR_PROJECT_ID with your actual Clarity Project ID -->
+    <!-- Get your ID from: https://clarity.microsoft.com/ -->
+    <!--
+    <script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "YOUR_PROJECT_ID");
+    </script>
+    -->
   </head>
   <body>
     <!-- Skip to main content for accessibility -->
