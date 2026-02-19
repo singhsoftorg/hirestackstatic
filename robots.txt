@@ -1,0 +1,14 @@
+# robots.txt for Hire Stack Solutions
+
+User-agent: *
+Allow: /
+
+# Sitemap location (update with actual URL when deployed)
+Sitemap: https://hirestacksolutions.au/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 0
+
+# Disallow admin or private areas (add as needed)
+# Disallow: /admin/
+# Disallow: /private/
