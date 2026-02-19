@@ -3,8 +3,8 @@
 User-agent: *
 Allow: /
 
-# Sitemap location (update with actual URL when deployed)
-Sitemap: https://hirestacksolutions.au/sitemap.xml
+# Sitemap location
+Sitemap: https://www.hirestacksolutions.com/sitemap.xml
 
 # Crawl delay (optional)
 Crawl-delay: 0
