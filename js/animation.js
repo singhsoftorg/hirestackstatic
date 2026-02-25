@@ -1,3 +1,4 @@
+(function() {
 // Three.js Scene Setup
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
@@ -17,11 +18,12 @@ document.getElementById("canvas-container").appendChild(renderer.domElement);
 
 camera.position.z = 5;
 
-// Create particles
-const particleCount = 1500;
+// Create particles (A1: increased count, size, adjusted opacity)
+const particleCount = 1200;
 const particles = new THREE.BufferGeometry();
 const positions = new Float32Array(particleCount * 3);
 const colors = new Float32Array(particleCount * 3);
+const sizes = new Float32Array(particleCount); // A2: depth variation
 
 const color1 = new THREE.Color(0x00d9ff);
 const color2 = new THREE.Color(0xff6b9d);
@@ -36,17 +38,22 @@ for (let i = 0; i < particleCount * 3; i += 3) {
   colors[i] = color.r;
   colors[i + 1] = color.g;
   colors[i + 2] = color.b;
+
+  // A2: Variable particle sizes for depth
+  sizes[i / 3] = Math.random() * 0.08 + 0.02;
 }
 
 particles.setAttribute("position", new THREE.BufferAttribute(positions, 3));
 particles.setAttribute("color", new THREE.BufferAttribute(colors, 3));
+particles.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
 
 const particleMaterial = new THREE.PointsMaterial({
-  size: 0.05,
+  size: 0.08,
   vertexColors: true,
   transparent: true,
-  opacity: 0.8,
+  opacity: 0.6,
   blending: THREE.AdditiveBlending,
+  sizeAttenuation: true,
 });
 
 const particleSystem = new THREE.Points(particles, particleMaterial);
@@ -74,30 +81,28 @@ for (let i = 0; i < 3; i++) {
   scene.add(mesh);
 }
 
+// A4: Mouse tracking for parallax
+const mouse = { x: 0, y: 0 };
+const smoothMouse = { x: 0, y: 0 };
+
+window.addEventListener("mousemove", (event) => {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+});
+
 // Scroll-based animation
-let scrollY = window.scrollY;
-let currentSection = 0;
+// Read scrollY and currentSection from the global scope (set by interactions.js)
+let scrollCameraX = 0;
+let scrollCameraY = 0;
 
 window.addEventListener("scroll", () => {
-  scrollY = window.scrollY;
-  const sections = document.querySelectorAll("section");
-  const scrollProgress =
+  var scrollY = window.scrollY;
+  var scrollProgress =
     scrollY / (document.body.scrollHeight - window.innerHeight);
 
-  // Determine current section
-  sections.forEach((section, index) => {
-    const rect = section.getBoundingClientRect();
-    if (
-      rect.top <= window.innerHeight / 2 &&
-      rect.bottom >= window.innerHeight / 2
-    ) {
-      currentSection = index;
-    }
-  });
-
-  // Animate camera based on section
-  camera.position.x = Math.sin(scrollProgress * Math.PI * 2) * 2;
-  camera.position.y = -scrollProgress * 3;
+  // Store scroll-based camera offsets (combined with mouse in animate loop)
+  scrollCameraX = Math.sin(scrollProgress * Math.PI * 2) * 2;
+  scrollCameraY = -scrollProgress * 3;
 
   // Rotate particle system
   particleSystem.rotation.y = scrollProgress * Math.PI * 4;
@@ -110,13 +115,20 @@ function animate() {
 
   const time = Date.now() * 0.001;
 
-  // Animate shapes based on current section
+  // A4: Smooth mouse interpolation
+  smoothMouse.x += (mouse.x - smoothMouse.x) * 0.05;
+  smoothMouse.y += (mouse.y - smoothMouse.y) * 0.05;
+
+  // A3: Slower shape rotation with breathing effect
   shapes.forEach((shape, index) => {
-    shape.rotation.x += 0.005 * (index + 1);
-    shape.rotation.y += 0.003 * (index + 1);
+    shape.rotation.x += 0.0005 * (index + 1);
+    shape.rotation.y += 0.001 * (index + 1);
+    const breathe = 1 + Math.sin(time * 0.5 + index * 1.5) * 0.08;
+    shape.scale.set(0.4 * breathe, 0.4 * breathe, 0.4 * breathe);
 
     // Change shape behavior per section
-    switch (currentSection) {
+    // Read currentSection from window (set by interactions.js)
+    switch (window.currentSection) {
       case 0: // Hero
         shape.position.y = Math.sin(time + index) * 0.5;
         break;
@@ -124,17 +136,22 @@ function animate() {
         shape.position.x = Math.cos(time + index) * 2;
         break;
       case 2: // Stats
-        shape.scale.set(
-          0.5 + Math.sin(time + index) * 0.2,
-          0.5 + Math.sin(time + index) * 0.2,
-          0.5 + Math.sin(time + index) * 0.2,
-        );
+        // Breathing effect already applied above
         break;
       case 3: // Services
         shape.position.z = Math.sin(time + index) * 2;
         break;
     }
   });
+
+  // A4: Mouse parallax on particles
+  particleSystem.rotation.z = smoothMouse.x * 0.1;
+
+  // A4: Smooth camera following mouse + scroll offset
+  const targetX = scrollCameraX + smoothMouse.x * 0.5;
+  const targetY = scrollCameraY + smoothMouse.y * 0.3;
+  camera.position.x += (targetX - camera.position.x) * 0.02;
+  camera.position.y += (targetY - camera.position.y) * 0.02;
 
   // Gentle particle movement
   const positionAttribute = particleSystem.geometry.attributes.position;
@@ -158,39 +175,7 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// Intersection Observer for scroll animations
-const observerOptions = {
-  threshold: 0.2,
-  rootMargin: "0px",
-};
+// IntersectionObserver and smooth scroll are handled by interactions.js
+// No duplicates needed here.
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-    }
-  });
-}, observerOptions);
-
-// Observe all animated elements
-document
-  .querySelectorAll(
-    ".section-title, .feature-card, .stat, .service-item, .contact-content",
-  )
-  .forEach((el) => {
-    observer.observe(el);
-  });
-
-// Smooth scroll for CTA button
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  });
-});
+})();

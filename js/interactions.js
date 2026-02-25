@@ -1,95 +1,10 @@
-// Three.js Scene Setup
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000,
-);
-const renderer = new THREE.WebGLRenderer({
-  alpha: true,
-  antialias: true,
-});
-
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-document.getElementById("canvas-container").appendChild(renderer.domElement);
-
-camera.position.z = 5;
-
-// Mouse tracking variables
-const mouse = { x: 0, y: 0 };
-const targetMouse = { x: 0, y: 0 };
-
-// Create particles
-const particleCount = 800;
-const particles = new THREE.BufferGeometry();
-const positions = new Float32Array(particleCount * 3);
-const colors = new Float32Array(particleCount * 3);
-const originalPositions = new Float32Array(particleCount * 3);
-
-const color1 = new THREE.Color(0x00d9ff);
-const color2 = new THREE.Color(0xff6b9d);
-
-for (let i = 0; i < particleCount * 3; i += 3) {
-  const x = (Math.random() - 0.5) * 20;
-  const y = (Math.random() - 0.5) * 20;
-  const z = (Math.random() - 0.5) * 20;
-
-  positions[i] = x;
-  positions[i + 1] = y;
-  positions[i + 2] = z;
-
-  originalPositions[i] = x;
-  originalPositions[i + 1] = y;
-  originalPositions[i + 2] = z;
-
-  const mixRatio = Math.random();
-  const color = color1.clone().lerp(color2, mixRatio);
-  colors[i] = color.r;
-  colors[i + 1] = color.g;
-  colors[i + 2] = color.b;
-}
-
-particles.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-particles.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-
-const particleMaterial = new THREE.PointsMaterial({
-  size: 0.05,
-  vertexColors: true,
-  transparent: true,
-  opacity: 0.8,
-  blending: THREE.AdditiveBlending,
-});
-
-const particleSystem = new THREE.Points(particles, particleMaterial);
-scene.add(particleSystem);
-
-// Create geometric shapes - subtle and minimal
-const geometry = new THREE.IcosahedronGeometry(0.8, 0);
-const material = new THREE.MeshBasicMaterial({
-  color: 0x00d9ff,
-  wireframe: true,
-  transparent: true,
-  opacity: 0.15,
-});
-
-const shapes = [];
-for (let i = 0; i < 2; i++) {
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.position.set(
-    (Math.random() - 0.5) * 8,
-    (Math.random() - 0.5) * 8,
-    (Math.random() - 0.5) * 3,
-  );
-  mesh.scale.set(0.4, 0.4, 0.4);
-  shapes.push(mesh);
-  scene.add(mesh);
-}
+// Mouse tracking variables (shared with animation.js via globals)
+var targetMouse = { x: 0, y: 0 };
+var currentSection = 0;
 
 // Scroll-based animation
-let scrollY = window.scrollY;
-let currentSection = 0;
+var scrollY = window.scrollY;
+currentSection = 0;
 
 // Scroll Progress Bar
 function updateScrollProgress() {
@@ -153,13 +68,6 @@ window.addEventListener("scroll", () => {
     }
   });
 
-  // Animate camera based on section
-  camera.position.x = Math.sin(scrollProgress * Math.PI * 2) * 2;
-  camera.position.y = -scrollProgress * 3;
-
-  // Rotate particle system
-  particleSystem.rotation.y = scrollProgress * Math.PI * 4;
-  particleSystem.rotation.x = scrollProgress * Math.PI * 2;
 });
 
 // Mouse move interaction - highly optimized
@@ -169,8 +77,10 @@ let followerX = 0;
 let followerY = 0;
 
 window.addEventListener("mousemove", (e) => {
-  targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-  targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  if (targetMouse) {
+    targetMouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+    targetMouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+  }
 
   cursorX = e.clientX;
   cursorY = e.clientY;
@@ -215,73 +125,6 @@ document
     });
   });
 
-// Animation loop
-function animate() {
-  requestAnimationFrame(animate);
-
-  const time = Date.now() * 0.001;
-
-  // Smooth mouse following
-  mouse.x += (targetMouse.x - mouse.x) * 0.05;
-  mouse.y += (targetMouse.y - mouse.y) * 0.05;
-
-  // Animate shapes based on current section - slower and smoother
-  shapes.forEach((shape, index) => {
-    shape.rotation.x += 0.001 * (index + 1);
-    shape.rotation.y += 0.002 * (index + 1);
-
-    // Change shape behavior per section
-    switch (currentSection) {
-      case 0: // Hero
-        shape.position.y = Math.sin(time + index) * 0.5;
-        break;
-      case 1: // Features
-        shape.position.x = Math.cos(time + index) * 2;
-        break;
-      case 2: // Calculator
-        shape.position.z = Math.cos(time + index) * 1.5;
-        break;
-      case 3: // Stats
-        shape.scale.set(
-          0.5 + Math.sin(time + index) * 0.2,
-          0.5 + Math.sin(time + index) * 0.2,
-          0.5 + Math.sin(time + index) * 0.2,
-        );
-        break;
-      case 4: // Services
-        shape.position.z = Math.sin(time + index) * 2;
-        break;
-    }
-  });
-
-  // Interactive particle movement - optimized, only update subset
-  const positionAttribute = particleSystem.geometry.attributes.position;
-  const updateFrequency = 3; // Update every 3rd particle for performance
-
-  for (let i = 0; i < positionAttribute.count; i += updateFrequency) {
-    const i3 = i * 3;
-    const x = originalPositions[i3];
-    const y = originalPositions[i3 + 1];
-    const z = originalPositions[i3 + 2];
-
-    // Gentle wave motion only
-    positionAttribute.setX(i, x + Math.sin(time * 0.5 + x) * 0.003);
-    positionAttribute.setY(i, y + Math.sin(time * 0.5 + y) * 0.003);
-    positionAttribute.setZ(i, z);
-  }
-  positionAttribute.needsUpdate = true;
-
-  renderer.render(scene, camera);
-}
-
-animate();
-
-// Handle window resize
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
 
 // Intersection Observer for scroll animations
 const observerOptions = {
@@ -305,7 +148,7 @@ const observer = new IntersectionObserver((entries) => {
 // Observe all animated elements
 document
   .querySelectorAll(
-    ".section-title, .feature-card, .stat, .service-item, .contact-content, .contact-form, .faq-item",
+    ".section-title, .feature-card, .stat, .service-item, .contact-content, .contact-form, .faq-item, .testimonial-card, .trust-badge",
   )
   .forEach((el) => {
     observer.observe(el);
@@ -339,6 +182,24 @@ function animateCounter(statElement) {
   requestAnimationFrame(updateCounter);
 }
 
+// Animated value transition helper
+function animateValue(element, newValue, prefix = '$', suffix = '') {
+  if (isNaN(newValue) || newValue === null) return;
+  const current = parseInt(element.textContent.replace(/[^0-9]/g, '')) || 0;
+  const target = newValue;
+  const duration = 400;
+  const startTime = performance.now();
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = Math.floor(current + (target - current) * eased);
+    element.textContent = prefix + value.toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
 // Calculator functionality
 const employeesSlider = document.getElementById("employees");
 const employeesValue = document.getElementById("employeesValue");
@@ -363,10 +224,9 @@ function updateCalculator() {
   const savingsPercent = ((savings / traditionalCost) * 100).toFixed(0);
 
   employeesValue.textContent = employees;
-  traditionalCostEl.textContent =
-    "$" + Math.round(traditionalCost).toLocaleString();
-  ourstackCostEl.textContent = "$" + Math.round(ourCost).toLocaleString();
-  savingsAmountEl.textContent = "$" + Math.round(savings).toLocaleString();
+  animateValue(traditionalCostEl, Math.round(traditionalCost), '$', '');
+  animateValue(ourstackCostEl, Math.round(ourCost), '$', '');
+  animateValue(savingsAmountEl, Math.round(savings), '$', '');
   savingsPercentEl.textContent = "(" + savingsPercent + "%)";
 }
 
@@ -375,6 +235,14 @@ if (employeesSlider && roleSelect) {
   roleSelect.addEventListener("change", updateCalculator);
   updateCalculator(); // Initial calculation
 }
+
+// Feature card toggle
+window.toggleFeature = function(element) {
+  document.querySelectorAll('.feature-card').forEach(card => {
+    if (card !== element) card.classList.remove('expanded');
+  });
+  element.classList.toggle('expanded');
+};
 
 // Service item expansion toggle
 window.toggleService = function (element) {
@@ -390,20 +258,6 @@ window.toggleService = function (element) {
   // Toggle current item
   element.classList.toggle("expanded");
 };
-
-// Smooth scroll for navigation and CTA buttons
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  });
-});
 
 // Removed aggressive parallax - was causing jerkiness
 
@@ -583,27 +437,6 @@ function validateField(input) {
   }
 }
 
-// Performance optimization: Reduce particles on mobile
-if (window.innerWidth <= 768) {
-  const positions = particleSystem.geometry.attributes.position;
-  const newCount = Math.floor(particleCount * 0.3); // 30% for mobile
-  const newPositions = new Float32Array(newCount * 3);
-  const newColors = new Float32Array(newCount * 3);
-
-  for (let i = 0; i < newCount * 3; i++) {
-    newPositions[i] = positions.array[i];
-    newColors[i] = particleSystem.geometry.attributes.color.array[i];
-  }
-
-  particleSystem.geometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(newPositions, 3),
-  );
-  particleSystem.geometry.setAttribute(
-    "color",
-    new THREE.BufferAttribute(newColors, 3),
-  );
-}
 
 // Accessibility: Keyboard navigation for service items
 document.querySelectorAll(".service-item").forEach((item, index) => {
@@ -637,6 +470,23 @@ document.querySelectorAll(".faq-item").forEach((item, index) => {
   });
 });
 
+// Accessibility: Keyboard navigation for feature cards
+document.querySelectorAll('.feature-card').forEach((item) => {
+  item.setAttribute('tabindex', '0');
+  item.setAttribute('role', 'button');
+  item.setAttribute('aria-expanded', 'false');
+  item.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleFeature(item);
+      item.setAttribute('aria-expanded', item.classList.contains('expanded'));
+    }
+  });
+  item.addEventListener('click', () => {
+    item.setAttribute('aria-expanded', item.classList.contains('expanded'));
+  });
+});
+
 // Accessibility: Announce page sections to screen readers
 const sections = document.querySelectorAll("section[id]");
 const navObserver = new IntersectionObserver(
@@ -649,9 +499,11 @@ const navObserver = new IntersectionObserver(
           hero: "Home",
           features: "Features",
           calculator: "Savings Calculator",
+          trust: "Trust & Credentials",
           stats: "Statistics",
           services: "Our Services",
           faq: "Frequently Asked Questions",
+          testimonials: "Testimonials",
           contact: "Contact Us",
         };
         if (sectionTitles[sectionId]) {
@@ -696,3 +548,30 @@ console.log(
 console.log("✅ Accessibility features enabled");
 console.log("📧 Contact form with validation ready");
 console.log("📊 Scroll progress & sticky CTA activated");
+
+// Mobile nav active state tracking
+if (window.innerWidth <= 768) {
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  const sections = document.querySelectorAll('section[id]');
+  const navObserver2 = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        mobileNavLinks.forEach(link => link.classList.remove('active'));
+        const activeLink = document.querySelector(`.mobile-nav-link[href="#${entry.target.id}"]`);
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(section => navObserver2.observe(section));
+}
+
+// Mouse-tracking spotlight effect on cards
+document.querySelectorAll('.feature-card, .testimonial-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    card.style.setProperty('--mouse-x', x + '%');
+    card.style.setProperty('--mouse-y', y + '%');
+  });
+});

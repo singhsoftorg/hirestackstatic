@@ -331,7 +331,7 @@
           <h2 class="section-title">What Makes Us Different</h2>
           <p class="section-subtitle">Real advantages, not marketing fluff</p>
           <div class="features-grid">
-            <div class="feature-card" data-tilt>
+            <div class="feature-card" style="--i: 0" onclick="toggleFeature(this)">
               <div class="feature-front">
                 <div class="feature-icon" data-icon="speed">
                   <svg
@@ -344,14 +344,14 @@
                     <polyline points="17 6 23 6 23 12"></polyline>
                   </svg>
                 </div>
-                <h3>Ship Fast</h3>
+                <h3>Ship Fast <span class="feature-expand-icon">+</span></h3>
                 <p>
                   Most agencies promise "2-3 weeks." We deliver in 72 hours.
                   Last month, we placed 8 senior engineers—average time: 4.2
                   days.
                 </p>
               </div>
-              <div class="feature-back">
+              <div class="feature-details">
                 <h4>Our 72-Hour Process:</h4>
                 <ul>
                   <li>
@@ -373,7 +373,7 @@
                 <button class="learn-more-btn">Learn More</button>
               </div>
             </div>
-            <div class="feature-card" data-tilt>
+            <div class="feature-card" style="--i: 1" onclick="toggleFeature(this)">
               <div class="feature-front">
                 <div class="feature-icon" data-icon="match">
                   <svg
@@ -386,14 +386,14 @@
                     <path d="m21 21-4.35-4.35"></path>
                   </svg>
                 </div>
-                <h3>No Resume Spam</h3>
+                <h3>No Resume Spam <span class="feature-expand-icon">+</span></h3>
                 <p>
                   We pre-screen 200+ applicants weekly. You only meet the 5%
                   who've built production systems, passed our technical eval,
                   and match your stack.
                 </p>
               </div>
-              <div class="feature-back">
+              <div class="feature-details">
                 <h4>Pre-Vetting Includes:</h4>
                 <ul>
                   <li>
@@ -415,7 +415,7 @@
                 <button class="learn-more-btn">Learn More</button>
               </div>
             </div>
-            <div class="feature-card" data-tilt>
+            <div class="feature-card" style="--i: 2" onclick="toggleFeature(this)">
               <div class="feature-front">
                 <div class="feature-icon" data-icon="scale">
                   <svg
@@ -430,14 +430,14 @@
                     <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                   </svg>
                 </div>
-                <h3>Scale Like Netflix</h3>
+                <h3>Scale Like Netflix <span class="feature-expand-icon">+</span></h3>
                 <p>
                   Need 2 developers this month, 12 next quarter? One call. Our
                   model handles rapid scaling without vendor lock-in or
                   multi-month contracts.
                 </p>
               </div>
-              <div class="feature-back">
+              <div class="feature-details">
                 <h4>Scaling Options:</h4>
                 <ul>
                   <li>
@@ -463,6 +463,11 @@
           </div>
         </div>
       </section>
+
+      <div class="section-divider" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-glow"></div>
+      </div>
 
       <!-- Interactive Talent Calculator -->
       <section id="calculator">
@@ -519,9 +524,15 @@
         </div>
       </section>
 
+      <div class="section-divider" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-glow"></div>
+      </div>
+
       <!-- Trust Badges -->
-      <div class="trust-badges">
-        <div class="trust-badge">
+      <section id="trust" class="trust-badges-section" aria-labelledby="trust-title">
+        <h2 id="trust-title" class="sr-only">Trust & Credentials</h2>
+        <div class="trust-badge" style="--i: 0">
           <div class="trust-badge-icon">
             <svg
               viewBox="0 0 24 24"
@@ -538,7 +549,7 @@
             <span>Audited Annually</span>
           </div>
         </div>
-        <div class="trust-badge">
+        <div class="trust-badge" style="--i: 1">
           <div class="trust-badge-icon">
             <svg
               viewBox="0 0 24 24"
@@ -556,7 +567,7 @@
             <span>G2 & Clutch (127 reviews)</span>
           </div>
         </div>
-        <div class="trust-badge">
+        <div class="trust-badge" style="--i: 2">
           <div class="trust-badge-icon">
             <svg
               viewBox="0 0 24 24"
@@ -576,7 +587,7 @@
             <span>LATAM, EU, Asia coverage</span>
           </div>
         </div>
-        <div class="trust-badge">
+        <div class="trust-badge" style="--i: 3">
           <div class="trust-badge-icon">
             <svg
               viewBox="0 0 24 24"
@@ -592,6 +603,11 @@
             <span>Avg. time to first candidate</span>
           </div>
         </div>
+      </section>
+
+      <div class="section-divider" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-glow"></div>
       </div>
 
       <section id="stats">
@@ -599,25 +615,25 @@
           <h2 class="section-title">By the Numbers</h2>
           <p class="section-subtitle">Updated weekly from actual placements</p>
           <div class="stats-container">
-            <div class="stat" data-count="500">
+            <div class="stat" style="--i: 0" data-count="500">
               <div class="stat-number" data-target="500">0</div>
               <div class="stat-plus">+</div>
               <div class="stat-label">Developers Placed</div>
               <div class="stat-sublabel">Since 2021</div>
             </div>
-            <div class="stat" data-count="98">
+            <div class="stat" style="--i: 1" data-count="98">
               <div class="stat-number" data-target="98">0</div>
               <div class="stat-plus">%</div>
               <div class="stat-label">Still Active After 12mo</div>
               <div class="stat-sublabel">Retention rate</div>
             </div>
-            <div class="stat" data-count="47">
+            <div class="stat" style="--i: 2" data-count="47">
               <div class="stat-number" data-target="47">0</div>
               <div class="stat-plus"></div>
               <div class="stat-label">Countries</div>
               <div class="stat-sublabel">Across 5 continents</div>
             </div>
-            <div class="stat" data-count="4">
+            <div class="stat" style="--i: 3" data-count="4">
               <div class="stat-number" data-target="4">0</div>
               <div class="stat-plus">.2</div>
               <div class="stat-label">Days to Hire</div>
@@ -626,6 +642,11 @@
           </div>
         </div>
       </section>
+
+      <div class="section-divider" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-glow"></div>
+      </div>
 
       <section id="services">
         <div class="services-container">
@@ -737,6 +758,11 @@
         </div>
       </section>
 
+      <div class="section-divider" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-glow"></div>
+      </div>
+
       <!-- FAQ Section -->
       <section id="faq" aria-labelledby="faq-title">
         <div class="faq-container">
@@ -748,7 +774,7 @@
           </p>
 
           <div class="faq-grid">
-            <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-item" style="--i: 0" onclick="toggleFAQ(this)">
               <div class="faq-question">
                 <h3>How quickly can you deploy talent?</h3>
                 <span class="faq-icon" aria-hidden="true">+</span>
@@ -764,7 +790,7 @@
               </div>
             </div>
 
-            <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-item" style="--i: 1" onclick="toggleFAQ(this)">
               <div class="faq-question">
                 <h3>What if a team member isn't the right fit?</h3>
                 <span class="faq-icon" aria-hidden="true">+</span>
@@ -780,7 +806,7 @@
               </div>
             </div>
 
-            <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-item" style="--i: 2" onclick="toggleFAQ(this)">
               <div class="faq-question">
                 <h3>How do you ensure quality and expertise?</h3>
                 <span class="faq-icon" aria-hidden="true">+</span>
@@ -797,7 +823,7 @@
               </div>
             </div>
 
-            <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-item" style="--i: 3" onclick="toggleFAQ(this)">
               <div class="faq-question">
                 <h3>What are the contract terms and flexibility?</h3>
                 <span class="faq-icon" aria-hidden="true">+</span>
@@ -813,7 +839,7 @@
               </div>
             </div>
 
-            <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-item" style="--i: 4" onclick="toggleFAQ(this)">
               <div class="faq-question">
                 <h3>Do you handle compliance and legal matters?</h3>
                 <span class="faq-icon" aria-hidden="true">+</span>
@@ -829,7 +855,7 @@
               </div>
             </div>
 
-            <div class="faq-item" onclick="toggleFAQ(this)">
+            <div class="faq-item" style="--i: 5" onclick="toggleFAQ(this)">
               <div class="faq-question">
                 <h3>What industries and technologies do you specialize in?</h3>
                 <span class="faq-icon" aria-hidden="true">+</span>
@@ -849,6 +875,11 @@
         </div>
       </section>
 
+      <div class="section-divider" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-glow"></div>
+      </div>
+
       <!-- Testimonials Section -->
       <section
         id="testimonials"
@@ -864,7 +895,7 @@
           </p>
 
           <div class="testimonials-grid">
-            <div class="testimonial-card">
+            <div class="testimonial-card" style="--i: 0">
               <div class="testimonial-quote">"</div>
               <p class="testimonial-text">
                 We needed a senior Rails dev ASAP after an unexpected departure.
@@ -882,7 +913,7 @@
               </div>
             </div>
 
-            <div class="testimonial-card">
+            <div class="testimonial-card" style="--i: 1">
               <div class="testimonial-quote">"</div>
               <p class="testimonial-text">
                 Painless. Hired 3 backend engineers in Colombia for ~$5k/month
@@ -899,7 +930,7 @@
               </div>
             </div>
 
-            <div class="testimonial-card">
+            <div class="testimonial-card" style="--i: 2">
               <div class="testimonial-quote">"</div>
               <p class="testimonial-text">
                 Built our entire mobile team through them—4 React Native devs.
@@ -919,6 +950,11 @@
           </div>
         </div>
       </section>
+
+      <div class="section-divider" aria-hidden="true">
+        <div class="divider-line"></div>
+        <div class="divider-glow"></div>
+      </div>
 
       <section
         id="contact"
@@ -1112,7 +1148,52 @@
       </section>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <footer class="site-footer" role="contentinfo">
+      <div class="footer-content">
+        <p>&copy; 2026 Hire Stack Solutions. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="mailto:contact@hirestacksolutions.com">contact@hirestacksolutions.com</a>
+          <span class="footer-separator">|</span>
+          <span>Melbourne, Australia</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        var s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        s.onload = function() {
+          var s2 = document.createElement('script');
+          s2.src = 'js/animation.js';
+          document.body.appendChild(s2);
+        };
+        document.body.appendChild(s);
+      }
+    </script>
     <script src="js/interactions.js"></script>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <a href="#hero" class="mobile-nav-link active">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="#features" class="mobile-nav-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>Features</span>
+      </a>
+      <a href="#services" class="mobile-nav-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <span>Services</span>
+      </a>
+      <a href="#faq" class="mobile-nav-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg>
+        <span>FAQ</span>
+      </a>
+      <a href="#contact" class="mobile-nav-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <span>Contact</span>
+      </a>
+    </nav>
   </body>
 </html>
